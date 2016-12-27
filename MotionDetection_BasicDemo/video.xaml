@@ -1,0 +1,14 @@
+﻿<Window x:Name="video1" x:Class="Basic_CameraViewer.video"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Basic_CameraViewer"
+        mc:Ignorable="d" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" WindowState="Maximized" Cursor="No" >
+    <Grid>
+
+        <MediaElement Name="VideoControl" Source="C:\Users\Developer\Videos\Logitech Webcam\Video 1.wmv" LoadedBehavior="Pause" ScrubbingEnabled="True" />
+       
+  
+    </Grid>
+</Window>

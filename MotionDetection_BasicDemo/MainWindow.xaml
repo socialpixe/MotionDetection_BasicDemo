@@ -1,0 +1,69 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:Ozeki.Media;assembly=OzekiSDK" x:Class="Basic_CameraViewer.MainWindow"
+        Title="MainWindow" 
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True" WindowState="Maximized" Height="531" WindowStyle="None">
+    <Grid>
+        <TextBlock Name="TitleComp" FontSize="35" HorizontalAlignment="Center" >Enhance Labs</TextBlock>
+
+        <GroupBox Name="BottomGroupBox" Header="Click To Start Detection" Height="50" Width="542" Margin="0,360,0,0"
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom" >
+            <Grid Name="BottomGrid" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Content="Detection" 
+                          HorizontalAlignment="Center" VerticalAlignment="Center" 
+                          Checked="MotionChecked" Unchecked="MotionChecked"/>
+                <Label Grid.Column="1" x:Name="MotionEventLabel" 
+                       FontSize="32" Foreground="Red" FontWeight="Bold"
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Name="TopGroupBox" Grid.Row="0" Header="Connect" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,80,0,0">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Top" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Camera URL:" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBox x:Name="UrlTextBox" Grid.Column="1" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" />
+                    <Button Grid.Column="2" Margin="10,0,5,2" x:Name="ComposeButton" Content="Compose" HorizontalAlignment="Center"  VerticalAlignment="Bottom"  Click="Compose_Click"/>
+                </Grid>
+                <Grid Grid.Row="1" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button IsEnabled="False" Grid.Column="0" x:Name="btn_Connect" Content="Connect" HorizontalAlignment="Center" VerticalAlignment="Top" Width="70" Click="Connect_Click"/>
+                        <Button IsEnabled="False" Grid.Column="1" x:Name="btn_Disconnect" Content="Disconnect" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="70"  Click="Disconnect_Click"/>
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+        </GroupBox>
+        <Controls:VideoViewerWPF Background="Black" Name="videoViewer" HorizontalAlignment="Center" Height="274" Margin="10,81,0,100" VerticalAlignment="Bottom" Width="524"/>
+        <GroupBox>
+
+            <MediaElement  Name="MediaDefu" LoadedBehavior="Manual" Visibility="Hidden" Source="E:\Compiled Data\2016-12-21\Image4-1.m4v"  Position="0:2:0">
+                 
+            </MediaElement>
+
+         </GroupBox>
+    </Grid>
+</Window>
