@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:Ozeki.Media;assembly=OzekiSDK" x:Class="Basic_CameraViewer.MainWindow"
         Title="MainWindow" 
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True" WindowState="Maximized" Height="531" WindowStyle="None">
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True" WindowState="Maximized" Height="531" WindowStyle="None" Cursor="No">
     <Grid>
         <TextBlock Name="TitleComp" FontSize="35" HorizontalAlignment="Center" >Enhance Labs</TextBlock>
 
-        <GroupBox Name="BottomGroupBox" Header="Click To Start Detection" Height="50" Width="542" Margin="0,360,0,0"
-                  HorizontalAlignment="Center" VerticalAlignment="Bottom" >
+        <GroupBox Name="BottomGroupBox" Header="Click To Start Detection" Height="50" Width="542" Margin="0,155,0,0"
+                  HorizontalAlignment="Center" VerticalAlignment="Top" >
             <Grid Name="BottomGrid" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -57,10 +57,10 @@
 
             </Grid>
         </GroupBox>
-        <Controls:VideoViewerWPF Background="Black" Name="videoViewer" HorizontalAlignment="Center" Height="274" Margin="10,81,0,100" VerticalAlignment="Bottom" Width="524"/>
+        <Controls:VideoViewerWPF Background="Black" Name="videoViewer" HorizontalAlignment="Center" Height="274" Margin="10,81,0,0" VerticalAlignment="Bottom" Width="524"/>
         <GroupBox>
 
-            <MediaElement  Name="MediaDefu" LoadedBehavior="Manual" Visibility="Hidden" Source="E:\Compiled Data\2016-12-21\Image4-1.m4v"  Position="0:2:0">
+            <MediaElement  Name="MediaDefu" LoadedBehavior="Manual" Visibility="Hidden" Source="C:\Video\video.mp4"  Position="0:0:2">
                  
             </MediaElement>
 

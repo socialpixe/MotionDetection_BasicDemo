@@ -5,7 +5,7 @@ using Ozeki.Camera;
 using Ozeki.Media;
 using System.Windows.Media;
 using System.Windows.Threading;
-
+using System.Windows.Input;
 
 namespace Basic_CameraViewer
 {
@@ -29,6 +29,8 @@ namespace Basic_CameraViewer
         {
             InitializeComponent();
 
+            //MediaDefu.Source = new Uri("ms-appx:///assests/image02.mp4");
+
             _connector = new MediaConnector();
 
             _provider = new DrawingImageProvider();
@@ -36,14 +38,16 @@ namespace Basic_CameraViewer
             _detector = new MotionDetector();
 
             videoViewer.SetImageProvider(_provider);
+            CallMe();
 
 
-          
 
            // MyWin.Show();
 
 
         }
+
+       
 
         void GuiThread(Action action)
         {
@@ -83,7 +87,58 @@ namespace Basic_CameraViewer
 
             });
         }
+        public void CallMe()
+        {
+             _myCameraURLBuilder = new CameraURLBuilderWPF();
+            var result = _myCameraURLBuilder.ShowDialog();
 
+            if (result == true)
+            {
+                if (_camera != null)
+                {
+                    _camera.Disconnect();
+                    videoViewer.Stop();
+                }
+
+                _camera = new OzekiCamera(_myCameraURLBuilder.CameraURL);
+                _camera.CameraStateChanged += _camera_CameraStateChanged;
+
+                InvokeGuiThread(() =>
+                {
+                    UrlTextBox.Text = _myCameraURLBuilder.CameraURL;
+                    ClickConnect();
+                    RunApp();
+                });
+
+                Disconnect();
+            }
+
+
+        }
+
+         
+
+        public void ClickConnect()
+        {
+           
+            Streaming();
+            MessageBox.Show(_provider.ToString());
+            _connector.Connect(_camera.VideoChannel, _detector);
+            _connector.Connect(_detector, _provider);
+
+            _camera.Start();
+            videoViewer.Start();
+        }
+        public void RunApp()
+        {
+            MotionEventLabel.Content = String.Empty;
+            StartMotionDetection();
+            BottomGroupBox.Visibility = Visibility.Hidden;
+            TopGroupBox.Visibility = Visibility.Hidden;
+            videoViewer.Visibility = Visibility.Hidden;
+            TitleComp.Visibility = Visibility.Hidden;
+            MediaDefu.Visibility = Visibility.Visible;
+        }
         public void Pause()
         {
             MediaDefu.Pause(); ;
@@ -93,15 +148,16 @@ namespace Basic_CameraViewer
             MediaDefu.Play();
             DispatcherTimer  dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(timer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 3);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 7);
             dispatcherTimer.Start();
 
         }
 
         void timer_Tick(object sender, EventArgs e)
         {
+
             var GetTime = (int)MediaDefu.NaturalDuration.TimeSpan.TotalSeconds;
-            var Fimalas = GetTime - 3;
+            var Fimalas = GetTime - 8;
             var GetElapsed = (int)MediaDefu.Position.TotalSeconds;
             
             if (GetElapsed >= Fimalas)
@@ -138,8 +194,7 @@ namespace Basic_CameraViewer
                     videoViewer.Visibility = Visibility.Hidden;
                     TitleComp.Visibility = Visibility.Hidden;
                     MediaDefu.Visibility = Visibility.Visible;
-                  
-
+                    //Mouse.OverrideCursor = Cursors.None;
                 }
 
                 else
@@ -226,6 +281,7 @@ namespace Basic_CameraViewer
         private void InvokeGuiThread(Action action)
         {
             Dispatcher.BeginInvoke(action);
+
         }
 
         
